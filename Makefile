@@ -5,8 +5,11 @@
 # Name of the final executable
 TARGET := game
 
-# Source files (add more .cpp files here later if needed)
-SOURCES := main.cpp
+# Source files — add new .cpp files here as you create them
+SOURCES := main.cpp character.cpp
+
+# Header files (just for dependency awareness — not compiled directly)
+HEADERS := character.h
 
 # Compiler — clang++ is the macOS default and works great with raylib
 CXX := clang++
@@ -35,7 +38,7 @@ LDFLAGS := -L$(RAYLIB_LIB) -lraylib \
            -framework CoreVideo \
            -framework Cocoa
 
-# Object files (automatically from sources)
+# Object files (automatically generated from SOURCES)
 OBJECTS := $(SOURCES:.cpp=.o)
 
 # Default target
@@ -46,7 +49,8 @@ $(TARGET): $(OBJECTS)
 	$(CXX) $(OBJECTS) -o $@ $(LDFLAGS)
 
 # Compile each .cpp → .o
-%.o: %.cpp
+# Also include headers in dependency list so changes to .h trigger rebuild
+%.o: %.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Clean up
@@ -59,6 +63,7 @@ clean:
 # Quick help
 help:
 	@echo "Usage:"
-	@echo "  make              → build release version"
-	@echo "  make BUILD_MODE=DEBUG → build debug version"
-	@echo "  make clean        → remove build files"
+	@echo "  make                    → build release version"
+	@echo "  make BUILD_MODE=DEBUG   → build debug version"
+	@echo "  make clean              → remove build files"
+	@echo "  make help               → show this message"
