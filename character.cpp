@@ -12,6 +12,7 @@ void Character::set_screen_pos(int win_width, int win_height){
 }
 
 void Character::tick(float delta_time){
+    world_pos_last_frame = world_pos;
     Vector2 direction{};
     // handle keyboard inputs
     if (IsKeyDown(KEY_A)) direction.x -= 1.0;
