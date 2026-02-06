@@ -23,7 +23,7 @@ RAYLIB_INCLUDE := /opt/homebrew/include
 RAYLIB_LIB     := /opt/homebrew/lib
 
 # Compiler flags
-CXXFLAGS := -Wall -std=c++14 -I$(RAYLIB_INCLUDE)
+CXXFLAGS := -Wall -std=c++17 -I$(RAYLIB_INCLUDE)
 
 ifeq ($(BUILD_MODE),DEBUG)
     CXXFLAGS += -g -O0
