@@ -6,10 +6,10 @@
 TARGET := game
 
 # Source files — add new .cpp files here as you create them
-SOURCES := main.cpp character.cpp
+SOURCES := main.cpp character.cpp prop.cpp
 
 # Header files (just for dependency awareness — not compiled directly)
-HEADERS := character.h
+HEADERS := character.h prop.h
 
 # Compiler — clang++ is the macOS default and works great with raylib
 CXX := clang++

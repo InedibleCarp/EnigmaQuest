@@ -1,5 +1,6 @@
 main.o
 character.o
+prop.o
 game
 .DS_Store
 .vscode
