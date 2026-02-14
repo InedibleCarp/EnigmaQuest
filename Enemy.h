@@ -1,9 +1,9 @@
 #include "raylib.h"
 #include "BaseCharacter.h"
 
-class Character : public BaseCharacter{
+class Enemy : public BaseCharacter{
     public:
-        Character(int win_width, int win_height);
+        Enemy(Vector2 pos, Texture2D idle_texture, Texture2D run_texture);
         void tick(float delta_time);
 
     private:

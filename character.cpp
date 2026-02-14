@@ -1,4 +1,4 @@
-#include "character.h"
+#include "Character.h"
 #include "raymath.h"
 
 Character::Character(int win_width, int win_height){
@@ -46,13 +46,4 @@ void Character::tick(float delta_time){
         scale * width, 
         scale * height};
     DrawTexturePro(texture, source, dest, Vector2{}, 0.f, WHITE);
-}
-
-Rectangle Character::get_collision_rec(){
-    return Rectangle{
-        screen_pos.x,
-        screen_pos.y,
-        width * scale,
-        height * scale
-    };
 }
