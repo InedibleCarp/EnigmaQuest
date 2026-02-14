@@ -9,6 +9,7 @@ class BaseCharacter{
         Vector2 get_world_pos(){ return world_pos; }
         void undo_movement(){ world_pos = world_pos_last_frame; }
         Rectangle get_collision_rec();
+        virtual void tick(float delta_time);
 
     protected:
         Texture2D texture{LoadTexture("characters/knight_idle_spritesheet.png")};

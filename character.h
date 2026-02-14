@@ -4,7 +4,7 @@
 class Character : public BaseCharacter{
     public:
         Character(int win_width, int win_height);
-        void tick(float delta_time);
+        virtual void tick(float delta_time) override;
 
     private:
         

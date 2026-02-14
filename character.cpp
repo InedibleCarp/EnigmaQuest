@@ -9,7 +9,8 @@ Character::Character(int win_width, int win_height){
 }
 
 void Character::tick(float delta_time){
-    world_pos_last_frame = world_pos;
+    BaseCharacter::tick(delta_time);
+
     Vector2 direction{};
     // handle keyboard inputs
     if (IsKeyDown(KEY_A)) direction.x -= 1.0;
@@ -25,25 +26,4 @@ void Character::tick(float delta_time){
     } else {
         texture = idle;
     }
-
-    // update animation frame
-    running_time += delta_time;
-    if (running_time >= update_time){
-        frame++;
-        running_time = 0.f;
-        if (frame > max_frames) frame = 0;
-    }
-
-    //draw the character
-    Rectangle source{
-        frame * width, 
-        0.f, 
-        right_left * width, 
-        height};
-    Rectangle dest{
-        screen_pos.x, 
-        screen_pos.y, 
-        scale * width, 
-        scale * height};
-    DrawTexturePro(texture, source, dest, Vector2{}, 0.f, WHITE);
 }
