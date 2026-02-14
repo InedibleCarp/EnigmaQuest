@@ -1,6 +1,8 @@
 main.o
-character.o
-prop.o
+BaseCharacter.o
+Character.o
+Prop.o
+Enemy.o
 game
 .DS_Store
 .vscode
