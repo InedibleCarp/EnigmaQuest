@@ -11,6 +11,8 @@ class BaseCharacter{
         Rectangle get_collision_rec();
         virtual void tick(float delta_time);
         virtual Vector2 get_screen_pos() = 0;
+        bool get_alive() { return alive; }
+        void set_alive(bool is_alive) { alive = is_alive; }
 
     protected:
         Texture2D texture{LoadTexture("characters/knight_idle_spritesheet.png")};
@@ -30,6 +32,9 @@ class BaseCharacter{
         float height{};
         float scale{4.0f};
         Vector2 velocity{};
+    
+    private:
+        bool alive{true};
 
 };
 

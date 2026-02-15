@@ -13,6 +13,7 @@ Vector2 Character::get_screen_pos(){
 }
 
 void Character::tick(float delta_time){
+    if (!get_alive()) return;
     // handle keyboard inputs
     if (IsKeyDown(KEY_A)) velocity.x -= 1.0;
     if (IsKeyDown(KEY_D)) velocity.x += 1.0;
@@ -24,6 +25,7 @@ void Character::tick(float delta_time){
     Vector2 origin{};
     Vector2 offset{};
     float rotation{};
+    // check direction
     if (right_left > 0.f){
         origin = {0.f, weapon.height * scale};
         offset = {35.f, 55.f};
@@ -33,7 +35,7 @@ void Character::tick(float delta_time){
             weapon.width * scale,
             weapon.height * scale
         };
-        rotation = 35.f;
+        rotation = IsMouseButtonDown(MOUSE_LEFT_BUTTON) ? 35.f : 0.f;
     } else {
         origin = {weapon.width * scale, weapon.height * scale};
         offset = {25.f, 55.f};
@@ -43,7 +45,7 @@ void Character::tick(float delta_time){
             weapon.width * scale,
             weapon.height * scale
         };
-        rotation = -35.f;
+        rotation = IsMouseButtonDown(MOUSE_LEFT_BUTTON) ? -35.f : 0.f;
     }
     
     // draw the sword
@@ -67,4 +69,9 @@ void Character::tick(float delta_time){
         weapon_collision_rec.height,
         RED
     );
+}
+
+void Character::take_damage(float damage){
+    health -= damage;
+    if (health <= 0.f) set_alive(false);
 }

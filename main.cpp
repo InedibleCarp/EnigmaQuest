@@ -61,6 +61,12 @@ int main(){
 
         goblin.tick(GetFrameTime());
 
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+            if (CheckCollisionRecs(goblin.get_collision_rec(), knight.get_weapon_rec())){
+                goblin.set_alive(false);
+            }
+        }
+
         EndDrawing();
     }
     UnloadTexture(game_map);
