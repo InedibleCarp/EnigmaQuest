@@ -1,4 +1,5 @@
 #include "BaseCharacter.h"
+#include "raymath.h"
 
 BaseCharacter::BaseCharacter(){
 
@@ -6,8 +7,8 @@ BaseCharacter::BaseCharacter(){
 
 Rectangle BaseCharacter::get_collision_rec(){
     return Rectangle{
-        screen_pos.x,
-        screen_pos.y,
+        get_screen_pos().x,
+        get_screen_pos().y,
         width * scale,
         height * scale
     };
@@ -24,6 +25,16 @@ void BaseCharacter::tick(float delta_time){
         if (frame > max_frames) frame = 0;
     }
 
+    // sprite movement check
+    if (Vector2Length(velocity) != 0.0){
+        world_pos = Vector2Add(world_pos, Vector2Scale(Vector2Normalize(velocity), speed));
+        velocity.x < 0.f ? right_left = -1.f : right_left = 1.f;
+        texture = run;
+    } else {
+        texture = idle;
+    }
+    velocity = {};
+
     //draw the character
     Rectangle source{
         frame * width, 
@@ -31,8 +42,8 @@ void BaseCharacter::tick(float delta_time){
         right_left * width, 
         height};
     Rectangle dest{
-        screen_pos.x, 
-        screen_pos.y, 
+        get_screen_pos().x, 
+        get_screen_pos().y, 
         scale * width, 
         scale * height};
     DrawTexturePro(texture, source, dest, Vector2{}, 0.f, WHITE);
