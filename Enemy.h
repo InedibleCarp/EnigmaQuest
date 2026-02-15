@@ -12,4 +12,5 @@ class Enemy : public BaseCharacter{
     private:
         Character* target{};
         float damange_per_sec{10.f};
+        float radius{25.f};
 };
