@@ -13,6 +13,8 @@ class Character : public BaseCharacter{
     private:
         int window_width{};
         int window_height{};
+        Texture2D weapon{LoadTexture("characters/weapon_sword.png")};
+        Rectangle weapon_collision_rec{};
         
 };
 
