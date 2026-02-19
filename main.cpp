@@ -10,6 +10,10 @@ int main(){
     const int window_height{384};
 
     InitWindow(window_width, window_height, "My RPG");
+    InitAudioDevice();
+
+    Music music = LoadMusicStream("audio/level_soundtrack.mp3");
+    PlayMusicStream(music);
 
     Texture2D game_map = LoadTexture("nature_tileset/OpenWorldMap24x24.png");
     Vector2 map_pos{0.0, 0.0};
@@ -46,6 +50,7 @@ int main(){
     SetTargetFPS(60);
     while(!WindowShouldClose()){
         BeginDrawing();
+        UpdateMusicStream(music);
         ClearBackground(WHITE);
 
         map_pos = Vector2Scale(knight.get_world_pos(), -1.f);
@@ -103,5 +108,7 @@ int main(){
         EndDrawing();
     }
     UnloadTexture(game_map);
+    UnloadMusicStream(music);
+    CloseAudioDevice();
     CloseWindow();
 }
