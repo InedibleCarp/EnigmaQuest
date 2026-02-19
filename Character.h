@@ -12,6 +12,7 @@ class Character : public BaseCharacter{
         virtual void take_damage(float damage) override;
         Rectangle get_weapon_rec() { return weapon_collision_rec; }
         float get_damage() const { return damage; }
+        void reset();
 
     private:
         int window_width{};

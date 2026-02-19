@@ -27,6 +27,21 @@ void BaseCharacter::apply_knockback(Vector2 direction, float force, float durati
     knockback_duration = duration;
 }
 
+void BaseCharacter::reset(Vector2 start_pos){
+    world_pos = start_pos;
+    world_pos_last_frame = start_pos;
+    health = max_health;
+    set_alive(true);
+    velocity = {};
+    knockback_vel = {};
+    knockback_duration = 0.f;
+    running_time = 0.f;
+    frame = 0;
+    right_left = 1.f;
+    tint = WHITE;
+    texture = idle;
+}
+
 void BaseCharacter::tick(float delta_time){
     world_pos_last_frame = world_pos;
 

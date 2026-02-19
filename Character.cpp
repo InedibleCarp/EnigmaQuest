@@ -78,3 +78,8 @@ void Character::take_damage(float damage){
     BaseCharacter::take_damage(damage);
     i_frame_duration = 0.5f;
 }
+
+void Character::reset(){
+    i_frame_duration = 0.f;
+    BaseCharacter::reset({});
+}
