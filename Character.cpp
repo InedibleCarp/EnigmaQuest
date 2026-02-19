@@ -14,6 +14,16 @@ Vector2 Character::get_screen_pos(){
 
 void Character::tick(float delta_time){
     if (!get_alive()) return;
+
+    // i-frames: count down timer and flash sprite
+    if (i_frame_duration > 0.f){
+        i_frame_duration -= delta_time;
+        if (i_frame_duration < 0.f) i_frame_duration = 0.f;
+        tint = (int)(i_frame_duration * 10) % 2 == 0 ? WHITE : Fade(WHITE, 0.3f);
+    } else {
+        tint = WHITE;
+    }
+
     // handle keyboard inputs
     if (IsKeyDown(KEY_A)) velocity.x -= 1.0;
     if (IsKeyDown(KEY_D)) velocity.x += 1.0;
@@ -64,6 +74,7 @@ void Character::tick(float delta_time){
 }
 
 void Character::take_damage(float damage){
-    health -= damage;
-    if (health <= 0.f) set_alive(false);
+    if (i_frame_duration > 0.f) return;
+    BaseCharacter::take_damage(damage);
+    i_frame_duration = 0.5f;
 }

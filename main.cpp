@@ -22,16 +22,17 @@ int main(){
         Prop{Vector2{400.f, 500.f}, LoadTexture("nature_tileset/Log.png")}};
 
     Enemy goblin{
-        Vector2{800.f, 300.f}, 
-        LoadTexture("characters/goblin_idle_spritesheet.png"), 
-        LoadTexture("characters/goblin_run_spritesheet.png")
+        Vector2{800.f, 300.f},
+        LoadTexture("characters/goblin_idle_spritesheet.png"),
+        LoadTexture("characters/goblin_run_spritesheet.png"),
+        60.f
     };
 
     Enemy slime{
         Vector2{500.f, 700.f},
-        LoadTexture("characters/slime_idle_spritesheet.png"), 
-        LoadTexture("characters/slime_run_spritesheet.png")
-
+        LoadTexture("characters/slime_idle_spritesheet.png"),
+        LoadTexture("characters/slime_run_spritesheet.png"),
+        40.f
     };
 
     Enemy* enemies[]{
@@ -91,7 +92,10 @@ int main(){
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
             for (auto enemy : enemies){
                 if (CheckCollisionRecs(enemy->get_collision_rec(), knight.get_weapon_rec())){
-                    enemy->set_alive(false);
+                    enemy->take_damage(knight.get_damage());
+                    Vector2 knockback_dir = Vector2Normalize(
+                        Vector2Subtract(enemy->get_world_pos(), knight.get_world_pos()));
+                    enemy->apply_knockback(knockback_dir, 250.f, 0.25f);
                 }
             }
         }

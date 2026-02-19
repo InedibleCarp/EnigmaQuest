@@ -14,8 +14,28 @@ Rectangle BaseCharacter::get_collision_rec(){
     };
 }
 
+void BaseCharacter::take_damage(float damage){
+    health -= damage;
+    if (health <= 0.f){
+        health = 0.f;
+        set_alive(false);
+    }
+}
+
+void BaseCharacter::apply_knockback(Vector2 direction, float force, float duration){
+    knockback_vel = Vector2Scale(direction, force);
+    knockback_duration = duration;
+}
+
 void BaseCharacter::tick(float delta_time){
     world_pos_last_frame = world_pos;
+
+    // apply knockback
+    if (knockback_duration > 0.f){
+        world_pos = Vector2Add(world_pos, Vector2Scale(knockback_vel, delta_time));
+        knockback_duration -= delta_time;
+        if (knockback_duration < 0.f) knockback_duration = 0.f;
+    }
 
     // update animation frame
     running_time += delta_time;
@@ -37,14 +57,14 @@ void BaseCharacter::tick(float delta_time){
 
     //draw the character
     Rectangle source{
-        frame * width, 
-        0.f, 
-        right_left * width, 
+        frame * width,
+        0.f,
+        right_left * width,
         height};
     Rectangle dest{
-        get_screen_pos().x, 
-        get_screen_pos().y, 
-        scale * width, 
+        get_screen_pos().x,
+        get_screen_pos().y,
+        scale * width,
         scale * height};
-    DrawTexturePro(texture, source, dest, Vector2{}, 0.f, WHITE);
+    DrawTexturePro(texture, source, dest, Vector2{}, 0.f, tint);
 }
