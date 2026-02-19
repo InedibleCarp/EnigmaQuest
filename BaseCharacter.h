@@ -13,6 +13,9 @@ class BaseCharacter{
         virtual Vector2 get_screen_pos() = 0;
         bool get_alive() { return alive; }
         void set_alive(bool is_alive) { alive = is_alive; }
+        virtual void take_damage(float damage);
+        float get_health() const { return health; }
+        void apply_knockback(Vector2 direction, float force, float duration);
 
     protected:
         Texture2D texture{LoadTexture("characters/knight_idle_spritesheet.png")};
@@ -32,7 +35,12 @@ class BaseCharacter{
         float height{};
         float scale{4.0f};
         Vector2 velocity{};
-    
+        float health{100.f};
+        float max_health{100.f};
+        Vector2 knockback_vel{};
+        float knockback_duration{0.f};
+        Color tint{255, 255, 255, 255};
+
     private:
         bool alive{true};
 
