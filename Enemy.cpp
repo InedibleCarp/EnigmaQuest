@@ -27,3 +27,7 @@ void Enemy::tick(float delta_time){
 Vector2 Enemy::get_screen_pos(){
     return Vector2Subtract(world_pos, target->get_world_pos());
 }
+
+void Enemy::reset(Vector2 start_pos){
+    BaseCharacter::reset(start_pos);
+}

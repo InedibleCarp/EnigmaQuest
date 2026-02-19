@@ -16,6 +16,7 @@ class BaseCharacter{
         virtual void take_damage(float damage);
         float get_health() const { return health; }
         void apply_knockback(Vector2 direction, float force, float duration);
+        void reset(Vector2 start_pos);
 
     protected:
         Texture2D texture{LoadTexture("characters/knight_idle_spritesheet.png")};

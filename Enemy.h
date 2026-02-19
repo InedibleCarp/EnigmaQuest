@@ -8,6 +8,7 @@ class Enemy : public BaseCharacter{
         virtual void tick(float delta_time) override;
         void set_target(Character* character){ target = character; }
         virtual Vector2 get_screen_pos() override;
+        void reset(Vector2 start_pos);
 
     private:
         Character* target{};
