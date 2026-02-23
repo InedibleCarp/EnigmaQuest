@@ -9,6 +9,7 @@ class Enemy : public BaseCharacter{
         void set_target(Character* character){ target = character; }
         virtual Vector2 get_screen_pos() override;
         void reset(Vector2 start_pos);
+        void resolve_overlap(Enemy& other);
 
     private:
         Character* target{};

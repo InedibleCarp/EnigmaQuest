@@ -44,6 +44,7 @@ int main(){
     Enemy* enemies[]{
         &goblin, &slime
     };
+    constexpr int enemy_count = sizeof(enemies) / sizeof(enemies[0]);
 
     for (auto enemy: enemies){
         enemy->set_target(&knight);
@@ -146,6 +147,13 @@ int main(){
 
             for (auto enemy : enemies){
                 enemy->tick(GetFrameTime());
+            }
+
+            // enemy to enemy collisions
+            for (int i = 0; i < enemy_count; i++){
+                for (int j = i + 1; j < enemy_count; j++){
+                    enemies[i]->resolve_overlap(*enemies[j]);
+                }
             }
 
             if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
